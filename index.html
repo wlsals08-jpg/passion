@@ -3,112 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[쇼핑몰명] - 당신의 매일을 스타일리시하게</title>
-    <!-- CSS 파일 링크는 여기에 추가됩니다 -->
+    <title>[쇼핑몰명] - 매일을 스타일리시하게</title>
+    <!-- 외부 CSS 파일 링크 (실제 운영 시 사용 권장) -->
     <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <style>
+        /* 기본 스타일 및 네이버처럼 꽉 찬 레이아웃을 위한 인라인 CSS */
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; background-color: #f8f8f8; }
+        .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; } /* 최대 너비 확장 */
+
+        /* 헤더 */
+        header { background-color: #fff; border-bottom: 1px solid #eee; padding: 15px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        header nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo h1 { margin: 0; font-size: 28px; }
+        .logo a { text-decoration: none; color: #333; font-weight: bold; }
+        .main-menu { list-style: none; margin: 0; padding: 0; display: flex; }
+        .main-menu > li { margin-left: 30px; position: relative; }
+        .main-menu > li > a { text-decoration: none; color: #555; font-weight: 500; font-size: 16px; padding: 10px 0; display: block; transition: color 0.3s ease; }
+        .main-menu > li > a:hover { color: #007bff; }
+        .main-menu .submenu { display: none; position: absolute; background-color: #fff; border: 1px solid #eee; min-width: 150px; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 10px 0; top: 100%; left: 0; }
+        .main-menu .has-submenu:hover .submenu { display: block; }
+        .submenu li a { padding: 8px 15px; display: block; text-decoration: none; color: #666; font-size: 14px; transition: background-color 0.3s ease, color 0.3s ease; }
+        .submenu li a:hover { background-color: #f5f5f5; color: #000; }
+        .user-actions a { color: #555; text-decoration: none; margin-left: 20px; font-size: 18px; transition: color 0.3s ease; }
+        .user-actions a:hover { color: #007bff; }
+
+        /* 메인 콘텐츠 섹션 공통 */
+        section { padding: 50px 0; background-color: #fff; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        section:last-of-type { margin-bottom: 0; }
+        section h3 { text-align: center; font-size: 32px; margin-bottom: 40px; font-weight: bold; color: #333; }
+        .btn-primary { background-color: #007bff; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 18px; transition: background-color 0.3s ease; display: inline-block; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-secondary { background-color: #f0f2f5; color: #333; padding: 10px 20px; text-decoration: none; border: 1px solid #ddd; border-radius: 5px; transition: background-color 0.3s ease; display: inline-block; }
+        .btn-secondary:hover { background-color: #e2e6ea; }
+
+        /* 히어로 섹션 (메인 비주얼) */
+        .hero-section { position: relative; width: 100%; height: 500px; overflow: hidden; margin-bottom: 20px; background-color: #e0f2f7; border-radius: 8px; box-shadow: none; } /* 배경색 추가 및 그림자 제거 */
+        .hero-slider .slider-item { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; color: #fff; text-align: center; }
+        .hero-slider .slider-item:first-child { display: block; }
+        .slider-item img { width: 100%; height: 100%; object-fit: cover; }
+        .slider-caption { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
+        .slider-caption h2 { font-size: 52px; margin-bottom: 10px; font-weight: bold; }
+        .slider-caption p { font-size: 22px; margin-bottom: 30px; font-weight: 300; }
+
+        /* 상품 그리드 (NEW ARRIVALS, BEST SELLERS) */
+        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .product-item { text-align: center; background-color: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.3s ease; }
+        .product-item:hover { transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .product-item img { width: 100%; height: 280px; object-fit: cover; margin-bottom: 10px; }
+        .product-item a { text-decoration: none; color: #333; display: block; padding-bottom: 15px; }
+        .product-name { font-size: 16px; margin: 5px 0 2px; font-weight: 500; padding: 0 10px; }
+        .product-price { font-size: 18px; color: #000; font-weight: bold; padding: 0 10px; }
+        .view-more { text-align: center; margin-top: 40px; }
+
+        /* 성별 카테고리 */
+        .gender-category-section .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .gender-category-section .category-item { position: relative; text-align: center; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .gender-category-section .category-item img { width: 100%; height: 350px; object-fit: cover; display: block; transition: transform 0.3s ease; }
+        .gender-category-section .category-item:hover img { transform: scale(1.05); }
+        .gender-category-section .category-item p { position: absolute; bottom: 25px; left: 0; right: 0; color: #fff; font-size: 28px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
+
+        /* 이벤트 배너 */
+        .event-banner-section img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
+        .event-banner-section img:hover { transform: translateY(-3px); }
+
+        /* 인스타그램 피드 */
+        .instagram-feed-section p { text-align: center; margin-bottom: 30px; color: #666; font-size: 18px; }
+        .instagram-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .instagram-grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; transition: transform 0.3s ease; }
+        .instagram-grid img:hover { transform: scale(1.05); }
+        .btn-instagram { display: block; width: fit-content; margin: 40px auto 0; background-color: #E1306C; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease; }
+        .btn-instagram:hover { background-color: #c13584; }
+
+        /* 푸터 */
+        footer { background-color: #333; padding: 40px 0; color: #ccc; font-size: 14px; border-top: 1px solid #444; }
+        .footer-info { display: flex; justify-content: space-between; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-info > div { flex: 1; min-width: 200px; margin-right: 30px; line-height: 1.8; }
+        .footer-info h4 { font-size: 16px; color: #fff; margin-bottom: 15px; font-weight: bold; }
+        .footer-info p { margin: 5px 0; }
+        .footer-links { text-align: center; margin-top: 20px; }
+        .footer-links a { color: #ccc; text-decoration: none; margin: 0 15px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: #fff; text-decoration: underline; }
+        .copyright { text-align: center; margin-top: 25px; color: #aaa; }
+    </style>
 </head>
 <body>
 
     <header>
-        <nav>
-            <div class="logo">
-                <h1><a href="/">[쇼핑몰명]</a></h1>
-            </div>
-            <ul class="main-menu">
-                <li><a href="/new-arrivals">NEW ARRIVALS</a></li>
-                <li><a href="/best-sellers">BEST SELLERS</a></li>
-                <li class="has-submenu">
-                    <a href="/shop/men">MEN</a>
-                    <ul class="submenu">
-                        <li><a href="/shop/men/outer">OUTER</a></li>
-                        <li><a href="/shop/men/top">TOP</a></li>
-                        <li><a href="/shop/men/bottom">BOTTOM</a></li>
-                        <li><a href="/shop/men/acc">ACC</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="/shop/women">WOMEN</a>
-                    <ul class="submenu">
-                        <li><a href="/shop/women/outer">OUTER</a></li>
-                        <li><a href="/shop/women/top">TOP</a></li>
-                        <li><a href="/shop/women/bottom">BOTTOM</a></li>
-                        <li><a href="/shop/women/dress">DRESS</a></li>
-                        <li><a href="/shop/women/acc">ACC</a></li>
-                    </ul>
-                </li>
-                <li><a href="/event">EVENT</a></li>
-                <li><a href="/board">COMMUNITY</a></li>
-            </ul>
-            <div class="user-actions">
-                <a href="/search" class="icon-link">🔍</a> <!-- 검색 아이콘 -->
-                <a href="/cart" class="icon-link">🛒</a> <!-- 장바구니 아이콘 -->
-                <a href="/mypage" class="icon-link">👤</a> <!-- 마이페이지/로그인 아이콘 -->
-            </div>
-        </nav>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1><a href="/">[쇼핑몰명]</a></h1>
+                </div>
+                <ul class="main-menu">
+                    <li><a href="/new-arrivals">NEW ARRIVALS</a></li>
+                    <li><a href="/best-sellers">BEST SELLERS</a></li>
+                    <li class="has-submenu">
+                        <a href="/shop/men">MEN</a>
+                        <ul class="submenu">
+                            <li><a href="/shop/men/outer">OUTER</a></li>
+                            <li><a href="/shop/men/top">TOP</a></li>
+                            <li><a href="/shop/men/bottom">BOTTOM</a></li>
+                            <li><a href="/shop/men/acc">ACC</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="/shop/women">WOMEN</a>
+                        <ul class="submenu">
+                            <li><a href="/shop/women/outer">OUTER</a></li>
+                            <li><a href="/shop/women/top">TOP</a></li>
+                            <li><a href="/shop/women/bottom">BOTTOM</a></li>
+                            <li><a href="/shop/women/dress">DRESS</a></li>
+                            <li><a href="/shop/women/acc">ACC</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/event">EVENT</a></li>
+                    <li><a href="/board">COMMUNITY</a></li>
+                </ul>
+                <div class="user-actions">
+                    <a href="/search" class="icon-link">🔍</a>
+                    <a href="/cart" class="icon-link">🛒</a>
+                    <a href="/mypage" class="icon-link">👤</a>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <section class="hero-section">
-            <div class="hero-slider">
-                <!-- 슬라이드 아이템 1 (남녀 공용/조합) -->
-                <div class="slider-item">
-                    <img src="https://via.placeholder.com/1920x600/F0F8FF/333333?text=Urban+Chic+for+Everyone" alt="메인 슬라이드 이미지 1">
-                    <div class="slider-caption">
-                        <h2>Urban Chic for Everyone</h2>
-                        <p>트렌디함과 편안함을 동시에, [쇼핑몰명]의 제안</p>
-                        <a href="/new-arrivals" class="btn-primary">NEW ARRIVALS</a>
+        <div class="container">
+            <!-- 메인 비주얼 슬라이더 (핵심 슬로건/CTA) -->
+            <section class="hero-section">
+                <div class="hero-slider">
+                    <div class="slider-item" style="background-image: url('https://via.placeholder.com/1920x500/A0E7E5/333333?text=매일을+스타일리시하게%2C+[쇼핑몰명]');">
+                        <div class="slider-caption">
+                            <h2>매일을 스타일리시하게, [쇼핑몰명]</h2>
+                            <p>20-30대 남녀 모두를 위한 트렌디하고 실용적인 데일리룩</p>
+                            <a href="/new-arrivals" class="btn-primary">NEW ARRIVALS 보러가기</a>
+                        </div>
+                    </div>
+                    <div class="slider-item" style="display:none; background-image: url('https://via.placeholder.com/1920x500/B2DFFF/333333?text=MEN%27S+COLLECTION+-+당신을+위한+스타일');">
+                        <div class="slider-caption">
+                            <h2>MEN'S COLLECTION</h2>
+                            <p>감각적인 남성을 위한 [쇼핑몰명]의 제안</p>
+                            <a href="/shop/men" class="btn-primary">MEN 상품 보러가기</a>
+                        </div>
+                    </div>
+                    <div class="slider-item" style="display:none; background-image: url('https://via.placeholder.com/1920x500/FFD1DC/333333?text=WOMEN%27S+COLLECTION+-+모던+엘레강스');">
+                        <div class="slider-caption">
+                            <h2>WOMEN'S COLLECTION</h2>
+                            <p>세련된 여성을 위한 [쇼핑몰명]의 모던 엘레강스</p>
+                            <a href="/shop/women" class="btn-primary">WOMEN 상품 보러가기</a>
+                        </div>
                     </div>
                 </div>
-                <!-- 슬라이드 아이템 2 (남성) -->
-                <div class="slider-item" style="display:none;">
-                    <img src="https://via.placeholder.com/1920x600/E6F5EC/333333?text=Men%27s+Sophistication" alt="메인 슬라이드 이미지 2">
-                    <div class="slider-caption">
-                        <h2>Men's Sophistication</h2>
-                        <p>감각적인 남성을 위한 스타일 가이드</p>
-                        <a href="/shop/men" class="btn-primary">MEN 컬렉션</a>
-                    </div>
-                </div>
-                <!-- 슬라이드 아이템 3 (여성) -->
-                <div class="slider-item" style="display:none;">
-                    <img src="https://via.placeholder.com/1920x600/FFF0F5/333333?text=Women%27s+Modern+Essence" alt="메인 슬라이드 이미지 3">
-                    <div class="slider-caption">
-                        <h2>Women's Modern Essence</h2>
-                        <p>세련된 여성의 라이프스타일 웨어</p>
-                        <a href="/shop/women" class="btn-primary">WOMEN 컬렉션</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="new-arrivals-section">
-            <div class="container">
+            <!-- NEW ARRIVALS 섹션 -->
+            <section class="new-arrivals-section">
                 <h3>NEW ARRIVALS</h3>
                 <div class="product-grid">
                     <div class="product-item">
-                        <a href="/product/1">
-                            <img src="https://via.placeholder.com/300x400?text=Men%27s+New+Top" alt="남성 신상품 상의">
-                            <p class="product-name">남성 오버핏 티셔츠</p>
+                        <a href="/product/men-new-top">
+                            <img src="https://via.placeholder.com/300x400/C8E6C9/333333?text=Men+Tee" alt="남성 신상품 티셔츠">
+                            <p class="product-name">남성 코튼 오버핏 티셔츠</p>
                             <p class="product-price">35,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/2">
-                            <img src="https://via.placeholder.com/300x400?text=Women%27s+New+Dress" alt="여성 신상품 원피스">
-                            <p class="product-name">여성 플리츠 롱 원피스</p>
+                        <a href="/product/women-new-dress">
+                            <img src="https://via.placeholder.com/300x400/FFECB3/333333?text=Women+Dress" alt="여성 신상품 원피스">
+                            <p class="product-name">여성 린넨 랩 원피스</p>
                             <p class="product-price">89,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/3">
-                            <img src="https://via.placeholder.com/300x400?text=Unisex+New+Bottom" alt="남녀공용 신상품 하의">
-                            <p class="product-name">남녀공용 스트링 팬츠</p>
+                        <a href="/product/unisex-new-bottom">
+                            <img src="https://via.placeholder.com/300x400/BBDEFB/333333?text=Unisex+Pants" alt="남녀공용 신상품 팬츠">
+                            <p class="product-name">남녀공용 스트릿 조거팬츠</p>
                             <p class="product-price">62,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/4">
-                            <img src="https://via.placeholder.com/300x400?text=Men%27s+New+Outer" alt="남성 신상품 아우터">
-                            <p class="product-name">남성 미니멀 자켓</p>
+                        <a href="/product/men-new-outer">
+                            <img src="https://via.placeholder.com/300x400/FFE0B2/333333?text=Men+Jacket" alt="남성 신상품 자켓">
+                            <p class="product-name">남성 미니멀 블레이저</p>
                             <p class="product-price">129,000원</p>
                         </a>
                     </div>
@@ -116,16 +193,15 @@
                 <div class="view-more">
                     <a href="/new-arrivals" class="btn-secondary">MORE NEW ARRIVALS</a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="gender-category-section">
-            <div class="container">
+            <!-- 성별 카테고리별 쇼핑 섹션 -->
+            <section class="gender-category-section">
                 <h3>SHOP BY GENDER</h3>
                 <div class="category-grid">
                     <div class="category-item men-category">
                         <a href="/shop/men">
-                            <img src="https://via.placeholder.com/600x400/CCE0FB/333333?text=FOR+HIM" alt="남성 카테고리">
+                            <img src="https://via.placeholder.com/600x400/A7D9EE/333333?text=FOR+HIM" alt="남성 카테고리">
                             <p>FOR HIM</p>
                         </a>
                     </div>
@@ -136,38 +212,37 @@
                         </a>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="best-sellers-section">
-            <div class="container">
+            <!-- BEST SELLERS 섹션 -->
+            <section class="best-sellers-section">
                 <h3>BEST SELLERS</h3>
                 <div class="product-grid">
                     <div class="product-item">
-                        <a href="/product/5">
-                            <img src="https://via.placeholder.com/300x400?text=Best+Men%27s+Item" alt="남성 베스트셀러 1">
-                            <p class="product-name">남성 린넨 셔츠</p>
+                        <a href="/product/men-best-shirt">
+                            <img src="https://via.placeholder.com/300x400/C8E6C9/333333?text=Men+Shirt" alt="남성 베스트셀러 셔츠">
+                            <p class="product-name">남성 데일리 린넨 셔츠</p>
                             <p class="product-price">48,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/6">
-                            <img src="https://via.placeholder.com/300x400?text=Best+Women%27s+Item" alt="여성 베스트셀러 1">
-                            <p class="product-name">여성 크롭 가디건</p>
+                        <a href="/product/women-best-cardigan">
+                            <img src="https://via.placeholder.com/300x400/FFECB3/333333?text=Women+Cardigan" alt="여성 베스트셀러 가디건">
+                            <p class="product-name">여성 크롭 니트 가디건</p>
                             <p class="product-price">39,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/7">
-                            <img src="https://via.placeholder.com/300x400?text=Best+Unisex+Item" alt="남녀공용 베스트셀러 1">
-                            <p class="product-name">남녀공용 기본 후드티</p>
+                        <a href="/product/unisex-best-hoodie">
+                            <img src="https://via.placeholder.com/300x400/BBDEFB/333333?text=Unisex+Hoodie" alt="남녀공용 베스트셀러 후드티">
+                            <p class="product-name">남녀공용 시그니처 후드티</p>
                             <p class="product-price">55,000원</p>
                         </a>
                     </div>
                     <div class="product-item">
-                        <a href="/product/8">
-                            <img src="https://via.placeholder.com/300x400?text=Best+Women%27s+Skirt" alt="여성 베스트셀러 2">
-                            <p class="product-name">여성 데님 미디 스커트</p>
+                        <a href="/product/women-best-skirt">
+                            <img src="https://via.placeholder.com/300x400/FFE0B2/333333?text=Women+Skirt" alt="여성 베스트셀러 스커트">
+                            <p class="product-name">여성 A라인 데님 스커트</p>
                             <p class="product-price">49,000원</p>
                         </a>
                     </div>
@@ -175,32 +250,30 @@
                 <div class="view-more">
                     <a href="/best-sellers" class="btn-secondary">MORE BEST SELLERS</a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="event-banner-section">
-            <div class="container">
+            <!-- 이벤트/프로모션 배너 -->
+            <section class="event-banner-section">
                 <a href="/event/promotion1">
-                    <img src="https://via.placeholder.com/1200x300/F5DEB3/333333?text=Limited+Time+Offer!+-+Event+Banner" alt="이벤트 배너">
+                    <img src="https://via.placeholder.com/1200x280/F5DEB3/333333?text=LIMITED+TIME+OFFER!+UP+TO+50%25+OFF+-+지금+바로+확인하세요!" alt="이벤트 배너">
                 </a>
-            </div>
-        </section>
+            </section>
 
-        <section class="instagram-feed-section">
-            <div class="container">
+            <!-- 인스타그램 피드 -->
+            <section class="instagram-feed-section">
                 <h3>#OOTD with [쇼핑몰명]</h3>
-                <p>고객들의 스타일링을 확인해보세요!</p>
+                <p>고객들의 스타일링을 확인해보세요! 트렌드를 함께 만들어가요.</p>
                 <div class="instagram-grid">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+M1" alt="인스타그램 피드 남성 1">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+W1" alt="인스타그램 피드 여성 1">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+M2" alt="인스타그램 피드 남성 2">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+W2" alt="인스타그램 피드 여성 2">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+U1" alt="인스타그램 피드 남녀공용 1">
-                    <img src="https://via.placeholder.com/200x200?text=Insta+W3" alt="인스타그램 피드 여성 3">
+                    <img src="https://via.placeholder.com/200x200/C8E6C9/333333?text=Insta+M1" alt="인스타그램 피드 남성 1">
+                    <img src="https://via.placeholder.com/200x200/FFECB3/333333?text=Insta+W1" alt="인스타그램 피드 여성 1">
+                    <img src="https://via.placeholder.com/200x200/BBDEFB/333333?text=Insta+M2" alt="인스타그램 피드 남성 2">
+                    <img src="https://via.placeholder.com/200x200/FFE0B2/333333?text=Insta+W2" alt="인스타그램 피드 여성 2">
+                    <img src="https://via.placeholder.com/200x200/A0E7E5/333333?text=Insta+U1" alt="인스타그램 피드 남녀공용 1">
+                    <img src="https://via.placeholder.com/200x200/B2DFFF/333333?text=Insta+W3" alt="인스타그램 피드 여성 3">
                 </div>
                 <a href="https://www.instagram.com/[쇼핑몰명_계정]" target="_blank" class="btn-instagram">Instagram에서 더 보기</a>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -213,22 +286,31 @@
                     <p>주말 및 공휴일 휴무</p>
                 </div>
                 <div class="company-info">
-                    <p>상호명: [회사명] | 대표: [대표자명]</p>
+                    <h4>COMPANY INFO</h4>
+                    <p>상호명: [회사명]</p>
+                    <p>대표: [대표자명]</p>
                     <p>사업자등록번호: XXX-XX-XXXXX</p>
                     <p>통신판매업신고: 제 XXXX-서울XX-XXXX호</p>
                     <address>주소: [회사 주소]</address>
+                </div>
+                <div class="bank-info">
+                    <h4>BANK INFO</h4>
+                    <p>은행명: OO은행</p>
+                    <p>계좌번호: XXX-XXXXXX-XX-XXX</p>
+                    <p>예금주: [회사명]</p>
                 </div>
             </div>
             <div class="footer-links">
                 <a href="/agreement">이용약관</a> |
                 <a href="/privacy">개인정보처리방침</a> |
-                <a href="/guide">이용안내</a>
+                <a href="/guide">이용안내</a> |
+                <a href="/partners">제휴문의</a>
             </div>
             <p class="copyright">&copy; 2023 [쇼핑몰명]. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript 파일 링크는 여기에 추가됩니다 -->
+    <!-- JavaScript 파일 링크 (실제 운영 시 사용 권장) -->
     <!-- <script src="js/main.js"></script> -->
     <script>
         // 데모 슬라이더를 위한 간단한 JavaScript (실제 사용 시 더욱 정교한 라이브러리 사용 권장)
